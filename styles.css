@@ -1,0 +1,114 @@
+:root {
+  --bg-dark: #0f0f0f;
+  --panel-bg: rgba(20, 20, 20, 0.88);
+  --accent: #c7a14a;
+  --text-main: #eaeaea;
+
+  --panel-width-desktop: 320px;
+  --panel-width-tablet: 260px;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Header */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 18px 40px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid #222;
+}
+
+/* Layout */
+.page-layout {
+  display: flex;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* Main content */
+.content {
+  flex: 1;
+  max-width: 700px;
+}
+
+.law {
+  margin-bottom: 48px;
+}
+
+.law h2 {
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+/* Insight Panel */
+.insight-panel {
+  width: var(--panel-width-desktop);
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  align-self: flex-start;
+
+  background: var(--panel-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid #222;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.insight-panel h3 {
+  margin-top: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.insight-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.insight-panel li {
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.insight-panel li:hover {
+  opacity: 1;
+}
+
+/* Breakpoints */
+@media (max-width: 1024px) {
+  .insight-panel {
+    width: var(--panel-width-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .insight-panel {
+    display: none;
+  }
+
+  .page-layout {
+    padding: 24px;
+  }
+}
