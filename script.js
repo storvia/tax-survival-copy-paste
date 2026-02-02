@@ -1,43 +1,28 @@
-// --- Page Navigation ---
-const nextBtn = document.querySelector(".next-btn");
-const prevBtn = document.querySelector(".prev-btn");
-const page1 = document.querySelector(".page1");
-const page2 = document.querySelector(".page2");
-const promptBox = document.getElementById("promptBox");
+const laws = document.querySelectorAll(".law");
+const panelTitle = document.getElementById("panel-title");
 
-function showPage(pageToShow, pageToHide) {
-    pageToHide.classList.remove("active");
-    pageToShow.classList.add("active");
+const lawTitles = {
+  1: "Law 1 — Never Outshine the Master",
+  2: "Law 2 — Trust Carefully",
+  3: "Law 3 — Conceal Intentions"
+};
 
-    // Trigger shimmer animation when page1 is visible
-    if (pageToShow === page1) {
-        promptBox.classList.remove("shimmer");
-        // Restart animation
-        void promptBox.offsetWidth; 
-        promptBox.classList.add("shimmer");
-    }
+function updatePanel(lawNumber) {
+  panelTitle.textContent = lawTitles[lawNumber] || "Insight Panel";
 }
 
-nextBtn.addEventListener("click", () => {
-    showPage(page2, page1);
-});
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const lawNumber = entry.target.dataset.law;
+        updatePanel(lawNumber);
+      }
+    });
+  },
+  {
+    threshold: 0.6
+  }
+);
 
-prevBtn.addEventListener("click", () => {
-    showPage(page1, page2);
-});
-
-// --- Copy Prompt to Clipboard ---
-const copyBtn = document.getElementById("copyPromptBtn");
-const promptText = document.getElementById("promptText");
-
-copyBtn.addEventListener("click", () => {
-    const textToCopy = promptText.innerText;
-    navigator.clipboard.writeText(textToCopy)
-        .then(() => {
-            copyBtn.textContent = "Copied!";
-            setTimeout(() => copyBtn.textContent = "Copy Prompt", 1500);
-        })
-        .catch(err => {
-            console.error("Copy failed:", err);
-        });
-});
+laws.forEach(law => observer.observe(law));
